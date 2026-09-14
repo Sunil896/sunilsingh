@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Name | Personal Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --primary: #06b6d4;
+      --secondary: #8b5cf6;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --border: #334155;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      padding: 1rem 2rem;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 0.3rem 0;
+      cursor: pointer;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--primary);
+    }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 2px;
+    }
+
+    /* Mobile menu */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Main content */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 2rem 4rem;
+    }
+
+    section {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1, h2 {
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: var(--text);
+      position: relative;
+      display: inline-block;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 3px;
+    }
+
+    /* About / Homepage */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 3rem;
+      align-items: start;
+      margin-top: 2rem;
+    }
+
+    .photo-card {
+      background: var(--card);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+    }
+
+    .photo-placeholder {
+      width: 100%;
+      height: 380px;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 1.1rem;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .photo-placeholder i {
+      font-size: 4rem;
+      opacity: 0.5;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      display: none;
+    }
+
+    .photo-info {
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .photo-info h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .photo-info p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+
+    .social-links a {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      transition: all 0.3s ease;
+      border: 1px solid var(--border);
+      text-decoration: none;
+    }
+
+    .social-links a:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .about-content p {
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+      font-size: 1.1rem;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-top: 1.5rem;
+    }
+
+    .skill {
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--primary);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      border: 1px solid rgba(6, 182, 212, 0.3);
+    }
+
+    /* Cards */
+    .cards {
+      display: grid;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.8rem;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: var(--primary);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px -10px rgba(6, 182, 212, 0.15);
+    }
+
+    .card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .card .meta {
+      color: var(--primary);
+      font-size: 0.95rem;
+      margin-bottom: 0.8rem;
+      font-weight: 500;
+    }
+
+    .card p {
+      color: var(--muted);
+    }
+
+    .card .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      background: rgba(139, 92, 246, 0.15);
+      color: var(--secondary);
+      padding: 0.25rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+    }
+
+    .project-links {
+      margin-top: 1.2rem;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: white;
+    }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      opacity: 0.9;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      margin-top: 2rem;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--primary), var(--secondary));
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.4rem;
+      top: 0.4rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: 3px solid var(--bg);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 4rem;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+      .photo-card {
+        max-width: 360px;
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg);
+        flex-direction: column;
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--border);
+        gap: 1.2rem;
+      }
+      .nav-links.show {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      h1 {
+        font-size: 2.2rem;
+      }
+      main {
+        padding: 5.5rem 1.2rem 3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo">YourName</div>
+      <button class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about" class="active" data-tab="about">About Me</a></li>
+        <li><a href="#education" data-tab="education">Education</a></li>
+        <li><a href="#projects" data-tab="projects">Projects</a></li>
+        <li><a href="#publications" data-tab="publications">Publications</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <!-- ABOUT / HOMEPAGE -->
+    <section id="about" class="active">
+      <h1>Hello, I'm Your Name</h1>
+      <div class="about-grid">
+        <!-- Photo Card -->
+        <div class="photo-card">
+          <div class="photo-placeholder">
+            <i class="fas fa-user-circle"></i>
+            <span>Add your photo here</span>
+            <small style="opacity:0.6">Recommended: 400×500 px</small>
+          </div>
+          <div class="photo-info">
+            <h3>Your Full Name</h3>
+            <p>Software Engineer / Researcher / Designer</p>
+            <div class="social-links">
+              <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+              <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" title="Twitter"><i class="fab fa-x-twitter"></i></a>
+              <a href="#" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- About Text -->
+        <div class="about-content">
+          <h2>About Me</h2>
+          <p>
+            Write a short and engaging introduction about yourself here. 
+            Talk about your passion, what drives you, and what you are currently working on.
+          </p>
+          <p>
+            You can mention your interests, career goals, or a fun fact. 
+            Keep it personal and authentic so visitors connect with you.
+          </p>
+          <p>
+            Feel free to expand this section with more paragraphs as needed.
+          </p>
+
+          <h3 style="margin-top: 2rem; margin-bottom: 0.8rem;">Skills & Technologies</h3>
+          <div class="skills">
+            <span class="skill">Python</span>
+            <span class="skill">JavaScript</span>
+            <span class="skill">React</span>
+            <span class="skill">Machine Learning</span>
+            <span class="skill">UI/UX Design</span>
+            <span class="skill">Research</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <h2>Education</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="card">
+            <h3>Master of Science in Computer Science</h3>
+            <div class="meta">University Name • 2022 – 2024</div>
+            <p>Specialized in Artificial Intelligence and Machine Learning. Thesis on [Your Thesis Topic]. GPA: 3.9/4.0</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="card">
+            <h3>Bachelor of Technology in Computer Science</h3>
+            <div class="meta">University Name • 2018 – 2022</div>
+            <p>Focused on software engineering, data structures, and algorithms. Graduated with First Class Honours.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Project Title One</h3>
+          <div class="meta">2024 • Personal / Open Source</div>
+          <p>
+            A short description of what the project does, the problem it solves, 
+            and the technologies you used. Highlight key achievements or results.
+          </p>
+          <div class="tags">
+            <span class="tag">React</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">MongoDB</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="btn btn-primary"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+            <a href="#" class="btn btn-outline"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Project Title Two</h3>
+          <div class="meta">2023 • Academic / Research</div>
+          <p>
+            Another project description. Explain your role, challenges faced, 
+            and what you learned from building it.
+          </p>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">NLP</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="btn btn-primary"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+            <a href="#" class="btn btn-outline"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section id="publications">
+      <h2>Publications</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Paper Title Goes Here</h3>
+          <div class="meta">Conference / Journal Name • 2024</div>
+          <p>
+            Authors: Your Name, Co-author 1, Co-author 2. 
+            Short abstract or description of the paper. Mention impact or citations if available.
+          </p>
+          <div class="project-links">
+            <a href="#" class="btn btn-primary"><i class="fas fa-file-pdf"></i> PDF</a>
+            <a href="#" class="btn btn-outline"><i class="fas fa-link"></i> DOI</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Another Publication Title</h3>
+          <div class="meta">Journal Name • 2023</div>
+          <p>
+            Brief description of the work and its contribution to the field.
+          </p>
+          <div class="project-links">
+            <a href="#" class="btn btn-primary"><i class="fas fa-file-pdf"></i> PDF</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Your Name. Built with ❤️ and modern web technologies.
+  </footer>
+
+  <script>
+    // Tab switching
+    const links = document.querySelectorAll('.nav-links a');
+    const sections = document.querySelectorAll('section');
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Update active link
+        links.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+
+        // Show corresponding section
+        const target = link.getAttribute('data-tab');
+        sections.forEach(sec => {
+          sec.classList.remove('active');
+          if (sec.id === target) sec.classList.add('active');
+        });
+
+        // Close mobile menu
+        navLinks.classList.remove('show');
+      });
+    });
+
+    // Mobile menu toggle
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+  </script>
+</body>
+</html>
