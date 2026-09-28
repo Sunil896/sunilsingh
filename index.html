@@ -163,7 +163,7 @@
     .photo-card {
       background: var(--card);
       border-radius: 20px;
-      overflow: hidden;
+      /* overflow: hidden; */
       border: 1px solid var(--border);
       box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
     }
@@ -180,17 +180,20 @@
       font-size: 1.1rem;
       gap: 1rem;
       border-bottom: 1px solid var(--border);
+      justify-content: center; /* Centers horizontally */
+      align-items: center; 
     }
 
-    .photo-placeholder i {
+    /* .photo-placeholder i {
       font-size: 4rem;
       opacity: 0.1;
-    }
+    } */
 
     .photo-card img {
       width: 100%;
       height: 380px;
       object-fit: cover;
+      border-radius: 50%;
       /* display: none; */
     }
 
